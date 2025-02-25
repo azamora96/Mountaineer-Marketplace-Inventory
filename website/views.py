@@ -31,3 +31,8 @@ def home():
     all_products = Products.query.all()
 
     return render_template("home.html", results=all_products)
+
+@views.route('/edit')
+def edit():
+
+    return render_template("edit.html")
