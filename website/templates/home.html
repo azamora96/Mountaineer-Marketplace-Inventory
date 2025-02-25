@@ -1,5 +1,78 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
 {% block content %}
-                <h1> This is the home page</h1>
+    <html lang="en">
+    <head>
+        <title>Marketplace Inventory</title>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th, td {
+                padding: 10px;
+                text-align: center;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .edit-button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 5px 10px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+            }
+            .edit-button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Mountaineer Marketplace Inventory</h1>
+        </header>
+
+        <section>
+            <p>Welcome...</p>
+        </section>
+
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Date Arrived</th>
+                        <th>TEFAP</th>
+                        <th>Best By</th>
+                        <th>Expiration</th>
+                        <th>Location</th>
+                        <th>Quantity</th>
+                        <th>Edit</th>
+                    </tr>
+                    {% for result in results %}
+                    <tr>
+                        <td> {{ result.image }}  </td>
+                        <td> {{ result.name }} </td>
+                        <td> {{ result.date_arrived }} </td>
+                        <td> {{ result.tefap }} </td>
+                        <td> {{ result.best_by }} </td>
+                        <td> {{ result.expiration }} </td>
+                        <td> {{ result.location }} </td>
+                        <td> {{ result.quantity }} </td>
+                        <td>
+                            <a href="{{ url_for('views.edit') }}" class="edit-button">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </thead>
+            </table>
+        </section>
+    </body>
+    </html>
 {% endblock %}
