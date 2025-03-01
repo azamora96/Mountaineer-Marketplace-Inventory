@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %} Edit Product {% endblock %}
+{% block content %}
+    <h2>Edit Product</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ product.name }}" required>
+
+        <label>TEFAP:</label>
+        <input type="text" name="TEFAP" value="{{ product.tefap }}" required>
+
+        <label>Location:</label>
+        <input type="text" name="location" value="{{ product.location }}" required>
+
+        <label>Quantity:</label>
+        <input type="number" name="quantity" value="{{ product.quantity }}" required>
+
+        <label>Best By:</label>
+        <input type="date" name="best-by" value="{{ product.best_by }}">
+
+        <label>Expiration:</label>
+        <input type="date" name="exp" value="{{ product.expiration }}">
+
+        <label>Date Arrived:</label>
+        <input type="date" name="date-arrived" value="{{ product.date_arrived }}">
+
+        <label>Current Image:</label>
+        {% if product.image %}
+            <img src="{{ url_for('static', filename='uploads/' + product.image) }}" width="100">
+        {% else %}
+            <p>No image available</p>
+        {% endif %}
+
+        <label>Change Image:</label>
+        <input type="file" name="image">
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+{% endblock %}
