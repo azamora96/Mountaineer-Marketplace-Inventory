@@ -20,7 +20,7 @@
                 background-color: #f2f2f2;
             }
             .edit-button {
-                background-color: #4CAF50;
+                background-color: blue;
                 color: white;
                 padding: 5px 10px;
                 border: none;
@@ -28,7 +28,7 @@
                 text-decoration: none;
             }
             .edit-button:hover {
-                background-color: #45a049;
+                background-color: purple;
             }
             .product-img {
                 width: 50px;
@@ -42,10 +42,6 @@
         <header>
             <h1>Mountaineer Marketplace Inventory</h1>
         </header>
-
-        <section>
-            <p>Welcome...</p>
-        </section>
 
         <section>
             <table>
@@ -80,8 +76,9 @@
                         <td>{{ result.location }}</td>
                         <td>{{ result.quantity }}</td>
                         <td>
-                            <a href="{{ url_for('views.edit') }}" class="edit-button">Edit</a>
+                            <a href="{{ url_for('views.edit', id=result.primary_id) }}" class="edit-button">Edit</a>
                         </td>
+                        
                     </tr>
                     {% endfor %}
                 </tbody>

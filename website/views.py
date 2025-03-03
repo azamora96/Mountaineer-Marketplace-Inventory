@@ -11,9 +11,44 @@ def home():
     all_products = Products.query.all()
     return render_template("home.html", results=all_products)
 
-@views.route('/edit')
-def edit():
-    return render_template("edit.html")
+@views.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    product = Products.query.get_or_404(id)  # Get product ID, found this one line on StackOverflow seems legit
+
+    if request.method == 'POST':
+        product.name = request.form.get('name')
+        product.tefap = request.form.get('TEFAP')
+        product.location = request.form.get('location')
+        product.quantity = request.form.get('quantity')
+        product.best_by = request.form.get('best-by')
+        product.expiration = request.form.get('exp')
+        product.date_arrived = request.form.get('date-arrived')
+
+        try:
+            product.best_by = datetime.strptime(product.best_by, '%Y-%m-%d').date() if product.best_by else None
+            product.expiration = datetime.strptime(product.expiration, '%Y-%m-%d').date() if product.expiration else None
+            product.date_arrived = datetime.strptime(product.date_arrived, '%Y-%m-%d').date() if product.date_arrived else None
+        except ValueError:
+            return "Invalid date format", 400
+
+        try:
+            product.quantity = int(product.quantity)
+        except ValueError:
+            return "Invalid quantity", 400
+
+        image = request.files.get('image')
+        if image:
+            image_filename = image.filename
+            upload_folder = os.path.join('static', 'uploads')
+            os.makedirs(upload_folder, exist_ok=True)
+            image_path = os.path.join(upload_folder, image_filename)
+            image.save(image_path)
+            product.image = image_filename 
+
+        db.session.commit()
+        return redirect(url_for('views.home'))
+
+    return render_template('edit.html', product=product)
 
 @views.route('/add', methods=['GET', 'POST'])
 def add_product():
@@ -53,10 +88,9 @@ def add_product():
             image=image_filename 
         )
 
-        new_products = Products.query.all()
         db.session.add(new_product)
         db.session.commit()
 
-        return redirect(url_for('views.home', results=new_products)) 
+        return redirect(url_for('views.home')) 
 
     return render_template('add.html')
