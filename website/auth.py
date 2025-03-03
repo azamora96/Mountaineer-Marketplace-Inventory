@@ -12,8 +12,10 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user:
-            login_user(user, remember=False)
-            return redirect(url_for("views.home"))
+            password = User.query.filter_by(password=password).first()
+            if password:
+                login_user(user, remember=False)
+                return redirect(url_for("views.home"))
 
     return render_template("login.html", boolean=True)
 
