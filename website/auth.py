@@ -24,8 +24,3 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("auth.login"))
-
-@auth.route("/signup",methods=['GET','POST'])
-def signup():
-    data = request.form
-    return render_template("sign_up.html")
