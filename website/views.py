@@ -1,17 +1,20 @@
 import os
 from flask import Blueprint, render_template, request, url_for, redirect
 from . import db
-from .models import Products
+from .models import Products, User
 from datetime import datetime
+from flask_login import login_user, login_required, logout_user, current_user
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
+@login_required
 def home():
     all_products = Products.query.all()
     return render_template("home.html", results=all_products)
 
 @views.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
 def edit(id):
     product = Products.query.get_or_404(id)  # Get product ID, found this one line on StackOverflow seems legit
 
@@ -51,6 +54,7 @@ def edit(id):
     return render_template('edit.html', product=product)
 
 @views.route('/add', methods=['GET', 'POST'])
+@login_required
 def add_product():
     if request.method == 'POST':
         name = request.form.get('name')
