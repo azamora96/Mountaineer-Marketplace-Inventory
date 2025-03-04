@@ -5,24 +5,32 @@
     <form method="POST" enctype="multipart/form-data">
         <label>Name:</label>
         <input type="text" name="name" value="{{ product.name }}" required>
+        <br>
 
         <label>TEFAP:</label>
-        <input type="text" name="TEFAP" value="{{ product.tefap }}" required>
+        <input type="radio" name="TEFAP" value="Yes" {% if product.tefap == "Yes" %}checked{% endif %} required> Yes
+        <input type="radio" name="TEFAP" value="No" {% if product.tefap == "No" %}checked{% endif %} required> No
+        <br>
 
         <label>Location:</label>
         <input type="text" name="location" value="{{ product.location }}" required>
+        <br>
 
         <label>Quantity:</label>
         <input type="number" name="quantity" value="{{ product.quantity }}" required>
+        <br>
 
         <label>Best By:</label>
         <input type="date" name="best-by" value="{{ product.best_by }}">
+        <br>
 
         <label>Expiration:</label>
         <input type="date" name="exp" value="{{ product.expiration }}">
+        <br>
 
         <label>Date Arrived:</label>
         <input type="date" name="date-arrived" value="{{ product.date_arrived }}">
+        <br>
 
         <label>Current Image:</label>
         {% if product.image %}
@@ -30,9 +38,11 @@
         {% else %}
             <p>No image available</p>
         {% endif %}
+        <br>
 
         <label>Change Image:</label>
         <input type="file" name="image">
+        <br>
 
         <button type="submit" class="btn btn-primary">Save Changes</button>
     </form>
