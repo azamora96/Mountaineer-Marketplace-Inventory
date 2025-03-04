@@ -4,6 +4,7 @@ from . import db
 from .models import Products, User
 from datetime import datetime
 from flask_login import login_user, login_required, logout_user, current_user
+from flask import jsonify
 
 views = Blueprint('views', __name__)
 
@@ -12,6 +13,27 @@ views = Blueprint('views', __name__)
 def home():
     all_products = Products.query.all()
     return render_template("home.html", results=all_products)
+
+@views.route('/plus/<int:id>', methods=['GET','POST'])
+@login_required
+def plus(id):
+    product = Products.query.get_or_404(id)
+
+    product.quantity = product.quantity + 1
+    db.session.commit()
+    return redirect(url_for('views.home')) 
+
+    
+@views.route('/minus/<int:id>', methods=['GET','POST'])
+@login_required
+def minus(id):
+    product = Products.query.get_or_404(id)
+
+    if product.quantity > 0:
+        product.quantity = product.quantity - 1
+    db.session.commit()
+    return redirect(url_for('views.home')) 
+
 
 @views.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -98,3 +120,4 @@ def add_product():
         return redirect(url_for('views.home')) 
 
     return render_template('add.html')
+

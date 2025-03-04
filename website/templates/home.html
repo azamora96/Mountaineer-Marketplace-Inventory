@@ -74,7 +74,13 @@
                         <td>{{ result.best_by }}</td>
                         <td>{{ result.expiration }}</td>
                         <td>{{ result.location }}</td>
-                        <td>{{ result.quantity }}</td>
+                        <td> 
+                            <div class="quantity-container">
+                                <a href="{{ url_for('views.minus', id=result.primary_id) }}" class="edit-button"> - </a>
+                                <span> {{ result.quantity }} </span>
+                                <a href="{{ url_for('views.plus', id=result.primary_id) }}" class="edit-button"> + </a>
+                            </div>
+                        </td>
                         <td>
                             <a href="{{ url_for('views.edit', id=result.primary_id) }}" class="edit-button">Edit</a>
                         </td>
@@ -87,3 +93,4 @@
     </body>
     </html>
 {% endblock %}
+
