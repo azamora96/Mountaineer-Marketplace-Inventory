@@ -14,7 +14,7 @@ def home():
     all_products = Products.query.all()
     return render_template("home.html", results=all_products)
 
-@views.route('/plus/<int:id>', methods=['GET','POST'])
+@views.route('/plus/<int:id>', methods=['POST'])
 @login_required
 def plus(id):
     product = Products.query.get_or_404(id)
@@ -24,7 +24,7 @@ def plus(id):
     return redirect(url_for('views.home')) 
 
     
-@views.route('/minus/<int:id>', methods=['GET','POST'])
+@views.route('/minus/<int:id>', methods=['POST'])
 @login_required
 def minus(id):
     product = Products.query.get_or_404(id)

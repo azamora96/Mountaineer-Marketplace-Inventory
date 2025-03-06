@@ -74,13 +74,50 @@
                         <td>{{ result.best_by }}</td>
                         <td>{{ result.expiration }}</td>
                         <td>{{ result.location }}</td>
-                        <td> 
+                        <td>
                             <div class="quantity-container">
-                                <a href="{{ url_for('views.minus', id=result.primary_id) }}" class="edit-button"> - </a>
-                                <span> {{ result.quantity }} </span>
-                                <a href="{{ url_for('views.plus', id=result.primary_id) }}" class="edit-button"> + </a>
+                                <button type="button" class="edit-button minus" data-id="{{ result.primary_id }}"> - </button>
+                                <span class="quantity" data-id="{{ result.primary_id }}">{{ result.quantity }}</span>
+                                <button type="button" class="edit-button plus" data-id="{{ result.primary_id }}"> + </button>
                             </div>
                         </td>
+                        
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const buttons = document.querySelectorAll(".edit-button");
+                        
+                                buttons.forEach(button => {
+                                    button.onclick = async function (event) { 
+                                        event.preventDefault(); 
+                                        event.stopPropagation();  
+                        
+                                        let quantitySpan = this.parentElement.querySelector(".quantity");
+                                        let id = this.getAttribute("data-id");
+                                        let action = this.classList.contains("minus") ? "minus" : "plus"; 
+                        
+                                        try {
+                                            let response = await fetch(`/${action}/${id}`, {
+                                                method: "POST",
+                                                headers: { "X-Requested-With": "XMLHttpRequest" }
+                                            });
+                        
+                                            if (response.ok) {
+                                                let newQuantity = action === "minus"
+                                                    ? Math.max(0, parseInt(quantitySpan.textContent, 10) - 1)
+                                                    : parseInt(quantitySpan.textContent, 10) + 1;
+                        
+                                                quantitySpan.textContent = newQuantity;
+                                            } else {
+                                                console.error("Failed to update quantity");
+                                            }
+                                        } catch (error) {
+                                            console.error("Error:", error);
+                                        }
+                                    };
+                                });
+                            });
+                        </script>
+                        
                         <td>
                             <a href="{{ url_for('views.edit', id=result.primary_id) }}" class="edit-button">Edit</a>
                         </td>
