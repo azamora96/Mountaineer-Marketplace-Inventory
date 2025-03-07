@@ -76,15 +76,17 @@
                         <td>{{ result.location }}</td>
                         <td>
                             <div class="quantity-container">
-                                <button type="button" class="edit-button minus" data-id="{{ result.primary_id }}"> - </button>
+                                <button type="button" class="button" data-id="{{ result.primary_id }}"> - </button>
                                 <span class="quantity" data-id="{{ result.primary_id }}">{{ result.quantity }}</span>
-                                <button type="button" class="edit-button plus" data-id="{{ result.primary_id }}"> + </button>
+                                <button type="button" class="button" data-id="{{ result.primary_id }}"> + </button>
                             </div>
+                        </td>                        
+                        <td>
+                            <a href="{{ url_for('views.edit', id=result.primary_id) }}" class="edit-button">Edit</a>
                         </td>
-                        
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
-                                const buttons = document.querySelectorAll(".edit-button");
+                                const buttons = document.querySelectorAll(".button");
                         
                                 buttons.forEach(button => {
                                     button.onclick = async function (event) { 
@@ -116,10 +118,6 @@
                                 });
                             });
                         </script>
-                        
-                        <td>
-                            <a href="{{ url_for('views.edit', id=result.primary_id) }}" class="edit-button">Edit</a>
-                        </td>
                         
                     </tr>
                     {% endfor %}
