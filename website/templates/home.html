@@ -98,7 +98,6 @@
                                         try {
                                             let response = await fetch(`/${action}/${id}`, {
                                                 method: "POST",
-                                                headers: { "X-Requested-With": "XMLHttpRequest" }
                                             });
                         
                                             if (response.ok) {
@@ -108,7 +107,7 @@
                         
                                                 quantitySpan.textContent = newQuantity;
                                             } else {
-                                                console.error("Failed to update quantity");
+                                                console.error("Bruh");
                                             }
                                         } catch (error) {
                                             console.error("Error:", error);
