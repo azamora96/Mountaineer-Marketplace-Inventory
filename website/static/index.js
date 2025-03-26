@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         buttons.forEach(button => {
             button.onclick = async function (event) { 
+                //These lines here are to stop the page from refreshing
                 event.preventDefault(); 
                 event.stopPropagation();  
 
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let id = this.getAttribute("data-id");
                 let action = this.classList.contains("minus") ? "minus" : "plus"; 
 
+                //Had to format it with this async so that the POST request works properly
                 try {
                     let response = await fetch(`/${action}/${id}`, {
                         method: "POST",
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateTable(results) {
         let tbody = document.querySelector("tbody");
-        tbody.innerHTML = ""; // Clear the current table content
+        tbody.innerHTML = ""; 
 
         results.forEach(result => {
             let row = document.createElement("tr");
@@ -85,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tbody.appendChild(row);
         });
 
+        //Have to recreate buttons so that quantity buttons work properly
         QuantityButtons();
     }
 });

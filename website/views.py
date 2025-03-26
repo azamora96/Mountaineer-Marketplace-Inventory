@@ -22,16 +22,13 @@ def filter(filter):
 
     if filter == "all":
         sort_column="primary_id"
-        sort_order="asc"
     elif filter == "name_asc":
         sort_column = "name"
-        sort_order = "asc"
     elif filter == "name_desc":
         sort_column = "name"
         sort_order = "desc"
     elif filter == "quantity_asc":
         sort_column = "quantity"
-        sort_order = "asc"
     elif filter == "quantity_desc":
         sort_column = "quantity"
         sort_order = "desc"
