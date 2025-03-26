@@ -14,6 +14,73 @@ def home():
     all_products = Products.query.all()
     return render_template("home.html", results=all_products)
 
+@views.route('/filter/<string:filter>')
+@login_required
+def filter(filter):
+    sort_column = "name"  
+    sort_order = "asc"  
+
+    if filter == "all":
+        sort_column="primary_id"
+        sort_order="asc"
+    elif filter == "name_asc":
+        sort_column = "name"
+        sort_order = "asc"
+    elif filter == "name_desc":
+        sort_column = "name"
+        sort_order = "desc"
+    elif filter == "quantity_asc":
+        sort_column = "quantity"
+        sort_order = "asc"
+    elif filter == "quantity_desc":
+        sort_column = "quantity"
+        sort_order = "desc"
+    elif filter == "location":
+        sort_column="location"
+    elif filter == "expiration":
+        sort_column="expiration"
+    elif filter == "date_arrived":
+        sort_column = "date_arrived"
+    elif filter =="best_by":
+        sort_column="best_by"
+
+    #<option value="all"> All</option>
+     #               <option value="name_asc"> Name Ascending</option>
+     #               <option value="name_desc"> Name Descending</option>
+     #               <option value="quantity_asc"> Quantity Ascending</option>
+     #               <option value="quantity_desc"> Quantity Descending</option>
+     #               <option value="location"> Location </option>
+     #               <option value="expiration"> Expiration </option>
+     #               <option value="date_arrived"> Date Arrived </option>
+     #               <option value="best_by"> Best by</option>
+
+    if sort_order == "asc":
+        filtered_products = Products.query.order_by(getattr(Products, sort_column)).all()
+    else:
+        filtered_products = Products.query.order_by(getattr(Products, sort_column).desc()).all()
+
+
+    results = []  
+
+    for product in filtered_products:
+   
+        product_dict = {
+            "primary_id": product.primary_id,
+            "name": product.name,
+            "date_arrived": product.date_arrived.strftime('%Y-%m-%d') if product.date_arrived else "",
+            "tefap": product.tefap,
+            "best_by": product.best_by.strftime('%Y-%m-%d') if product.best_by else "",
+            "expiration": product.expiration.strftime('%Y-%m-%d') if product.expiration else "",
+            "location": product.location,
+            "quantity": product.quantity,
+            "image": product.image
+        }
+        results.append(product_dict)
+
+
+    return jsonify(results=results)  
+
+
 @views.route('/plus/<int:id>', methods=['POST'])
 @login_required
 def plus(id):

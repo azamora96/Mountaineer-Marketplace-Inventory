@@ -36,12 +36,36 @@
                 object-fit: cover;
                 border-radius: 5px;
             }
+            .filter-container {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 10px;
+            }
+            .filter-dropdown {
+                padding: 5px;
+            }
         </style>
     </head>
     <body>
         <header>
             <h1>Mountaineer Marketplace Inventory</h1>
         </header>
+
+        <section>
+            <div class="filter-container">
+                <label for="filter">Filter by:</label>
+                <select id="filter" class="filter-dropdown">
+                    <option value="all"> All</option>
+                    <option value="name_asc"> Name Ascending</option>
+                    <option value="name_desc"> Name Descending</option>
+                    <option value="quantity_asc"> Quantity Ascending</option>
+                    <option value="quantity_desc"> Quantity Descending</option>
+                    <option value="location"> Location </option>
+                    <option value="expiration"> Expiration </option>
+                    <option value="date_arrived"> Date Arrived </option>
+                    <option value="best_by"> Best by</option>
+                </select>
+            </div>
 
         <section>
             <table>
@@ -84,39 +108,8 @@
                         <td>
                             <a href="{{ url_for('views.edit', id=result.primary_id) }}" class="edit-button">Edit</a>
                         </td>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function () {
-                                const buttons = document.querySelectorAll(".button");
-                        
-                                buttons.forEach(button => {
-                                    button.onclick = async function (event) { 
-                                        event.preventDefault(); 
-                                        event.stopPropagation();  
-                        
-                                        let quantitySpan = this.parentElement.querySelector(".quantity");
-                                        let id = this.getAttribute("data-id");
-                                        let action = this.classList.contains("minus") ? "minus" : "plus"; 
-                        
-                                        try {
-                                            let response = await fetch(`/${action}/${id}`, {
-                                                method: "POST",
-                                            });
-                        
-                                            if (response.ok) {
-                                                let newQuantity = action === "minus"
-                                                    ? Math.max(0, parseInt(quantitySpan.textContent, 10) - 1)
-                                                    : parseInt(quantitySpan.textContent, 10) + 1;
-                        
-                                                quantitySpan.textContent = newQuantity;
-                                            } else {
-                                                console.error("Bruh");
-                                            }
-                                        } catch (error) {
-                                            console.error("Error:", error);
-                                        }
-                                    };
-                                });
-                            });
+                        <script src="index.js">
+                           
                         </script>
                         
                     </tr>
