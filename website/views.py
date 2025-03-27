@@ -5,6 +5,8 @@ from .models import Products, User
 from datetime import datetime
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import jsonify
+from flask_mail import Message
+from . import mail
 
 views = Blueprint('views', __name__)
 
@@ -184,4 +186,19 @@ def add_product():
         return redirect(url_for('views.home')) 
 
     return render_template('add.html')
+
+
+@views.route("/test")
+def index():
+    return render_template("test.html")
+
+@views.route("/test", methods=['POST', 'GET'])
+def result():
+    if request.method == "POST":
+        msg = Message(request.form.get("Subject"), sender='mountaineer.marketplace.alerts@gmail.com', recipients=[request.form.get("Email")] )
+        msg.body = "Hello from python app"
+        mail.send(msg)
+
+        return render_template("test.html")
+
 

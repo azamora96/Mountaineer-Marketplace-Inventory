@@ -1,14 +1,27 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_mail import Mail, Message
 
 db = SQLAlchemy()
+mail = Mail()
 
 def create_app():
     app = Flask(__name__)
+
+    #DATABASE CONFIGURATIONS
     app.config['SECRET_KEY'] = 'you aint getting by me lol'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///product_db.sqlite'
 
+    #EMAIL CONFIGURATIONS
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USERNAME'] = 'mountaineer.marketplace.alerts@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'lyvt dkrh nkip cmdh'
+    app.config['MAIL_USE_SSL'] = True
+
+
+    mail.init_app(app)
     db.init_app(app)
 
     from .views import views
