@@ -108,10 +108,13 @@
                         <td>
                             <a href="{{ url_for('views.edit', id=result.primary_id) }}" class="edit-button">Edit</a>
                         </td>
+                        <td>
+                            <button class="delete-button" data-id="{{ result.primary_id }}">Delete</button>
+                        </td>
+                        
                         <script src="index.js">
                            
                         </script>
-                        
                     </tr>
                     {% endfor %}
                 </tbody>
