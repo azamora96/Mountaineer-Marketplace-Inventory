@@ -164,7 +164,7 @@ def add_product():
         image_filename = None
         if image:
             image_filename = image.filename
-            upload_folder = os.path.join('static', 'uploads')
+            upload_folder = os.path.join('website','static', 'uploads')
             os.makedirs(upload_folder, exist_ok=True)
             image_path = os.path.join(upload_folder, image_filename)
             image.save(image_path)
