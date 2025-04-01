@@ -202,17 +202,3 @@ def delete_item(item_id):
     return jsonify({'success': True})
 
 
-@views.route("/test")
-def index():
-    return render_template("test.html")
-
-@views.route("/test", methods=['POST', 'GET'])
-def result():
-    if request.method == "POST":
-        msg = Message(request.form.get("Subject"), sender='mountaineer.marketplace.alerts@gmail.com', recipients=[request.form.get("Email")] )
-        msg.body = "Hello from python app"
-        mail.send(msg)
-
-        return render_template("test.html")
-
-
