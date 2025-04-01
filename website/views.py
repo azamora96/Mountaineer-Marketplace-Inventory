@@ -194,6 +194,10 @@ def delete_item(item_id):
 
     db.session.delete(product)
     db.session.commit()
+
+    msg = Message("Inventory Removed Alert", sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"] )    
+    msg.body = product.name + " with expiration of " + product.expiration.strftime("%m-%d-%Y") + " removed from inventory."
+    mail.send(msg)
     
     return jsonify({'success': True})
 
