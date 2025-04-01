@@ -93,10 +93,10 @@
                             {% endif %}
                         </td>
                         <td>{{ result.name }}</td>
-                        <td>{{ result.date_arrived }}</td>
+                        <td>{{ result.date_arrived.strftime('%m-%d-%Y') }}</td>
                         <td>{{ result.tefap }}</td>
-                        <td>{{ result.best_by }}</td>
-                        <td>{{ result.expiration }}</td>
+                        <td>{{ result.best_by.strftime('%m-%d-%Y') }}</td>
+                        <td>{{ result.expiration.strftime('%m-%d-%Y') }}</td>
                         <td>{{ result.location }}</td>
                         <td>
                             <div class="quantity-container">
