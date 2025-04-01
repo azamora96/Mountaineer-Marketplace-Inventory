@@ -81,6 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 </td>                        
                 <td>
                     <a href="/edit/${result.primary_id}" class="edit-button">Edit</a>
+                </td>
+                <td>
                     <button class="delete-button" data-id="${result.primary_id}">Delete</button>
                 </td>
             `;
