@@ -66,10 +66,10 @@ def filter(filter):
         product_dict = {
             "primary_id": product.primary_id,
             "name": product.name,
-            "date_arrived": product.date_arrived.strftime('%Y-%m-%d') if product.date_arrived else "",
+            "date_arrived": product.date_arrived.strftime('%m-%d-%Y') if product.date_arrived else "",
             "tefap": product.tefap,
-            "best_by": product.best_by.strftime('%Y-%m-%d') if product.best_by else "",
-            "expiration": product.expiration.strftime('%Y-%m-%d') if product.expiration else "",
+            "best_by": product.best_by.strftime('%m-%d-%Y') if product.best_by else "",
+            "expiration": product.expiration.strftime('%m-%d-%Y') if product.expiration else "",
             "location": product.location,
             "quantity": product.quantity,
             "image": product.image
