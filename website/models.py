@@ -11,6 +11,8 @@ class Products(db.Model):
     location = db.Column(db.String(50))
     quantity = db.Column(db.Integer)
     date_arrived = db.Column(db.Date)
+    alert_num = db.Column(db.Integer)
+    low_on_stock = db.Column(db.Boolean, default=False)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

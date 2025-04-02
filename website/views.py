@@ -1,12 +1,12 @@
 import os
-from flask import Blueprint, render_template, request, url_for, redirect
-from . import db
+import threading
+from flask import Blueprint, render_template, request, url_for, redirect, current_app
+from . import db, app, mail
 from .models import Products, User
 from datetime import datetime
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import jsonify
 from flask_mail import Message
-from . import mail
 
 views = Blueprint('views', __name__)
 
@@ -85,7 +85,8 @@ def filter(filter):
 def plus(id):
     product = Products.query.get_or_404(id)
 
-    product.quantity = product.quantity + 1
+    new_quantity = product.quantity + 1
+    product.quantity = new_quantity
     db.session.commit()
     return redirect(url_for('views.home')) 
 
@@ -96,7 +97,14 @@ def minus(id):
     product = Products.query.get_or_404(id)
 
     if product.quantity > 0:
-        product.quantity = product.quantity - 1
+        new_quantity = product.quantity - 1
+        product.quantity = new_quantity
+
+        if(new_quantity == product.alert_num):
+            product.low_on_stock = True
+            threading.Thread(target=send_email, args=(product, "Low Stock Alert")).start()
+
+
     db.session.commit()
     return redirect(url_for('views.home')) 
 
@@ -114,6 +122,7 @@ def edit(id):
         product.best_by = request.form.get('best-by')
         product.expiration = request.form.get('exp')
         product.date_arrived = request.form.get('date-arrived')
+        product.alert_num = request.form.get('alertNum')
 
         try:
             product.best_by = datetime.strptime(product.best_by, '%Y-%m-%d').date() if product.best_by else None
@@ -153,6 +162,7 @@ def add_product():
         date_arrived = request.form.get('date-arrived')
         best_by = request.form.get('best-by')
         image = request.files.get('image')
+        alert_num = request.form.get('alertNum')
 
         try:
             exp = datetime.strptime(exp, '%Y-%m-%d').date() if exp else None
@@ -177,7 +187,8 @@ def add_product():
             expiration=exp,
             date_arrived=date_arrived,
             best_by=best_by,
-            image=image_filename 
+            image=image_filename,
+            alert_num=alert_num
         )
 
         db.session.add(new_product)
@@ -192,13 +203,32 @@ def add_product():
 def delete_item(item_id):
     product = Products.query.get_or_404(item_id)
 
+    threading.Thread(target=send_email, args=(product, "Inventory Removed Alert")).start()
     db.session.delete(product)
     db.session.commit()
-
-    msg = Message("Inventory Removed Alert", sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"] )    
-    msg.body = product.name + " with expiration of " + product.expiration.strftime("%m-%d-%Y") + " removed from inventory."
-    mail.send(msg)
     
     return jsonify({'success': True})
+
+
+def send_email(product, subject):
+    with app.app_context():
+        try:
+            product = db.session.merge(product)
+            
+            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"])
+
+            if subject == "Low Stock Alert":
+                if(product.quantity == 1):
+                    msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} is low in stock, there is {product.quantity} left."
+                else:
+                    msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} is low in stock, there are {product.quantity} left."
+            else:
+                msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} removed from inventory."
+            mail.send(msg) 
+
+        except Exception as e:
+            print(e)
+        
+    
 
 

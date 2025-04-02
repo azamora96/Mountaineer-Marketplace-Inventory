@@ -5,9 +5,9 @@ from flask_mail import Mail, Message
 
 db = SQLAlchemy()
 mail = Mail()
+app = Flask(__name__)
 
 def create_app():
-    app = Flask(__name__)
 
     #DATABASE CONFIGURATIONS
     app.config['SECRET_KEY'] = 'you aint getting by me lol'
