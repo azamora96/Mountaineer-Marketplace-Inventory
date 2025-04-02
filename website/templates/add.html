@@ -63,13 +63,22 @@
   </div>
 
   <div class="row-2">
-    <label for="exp">Expiration Date:</label>
-    <input type="date" class="add-control" id="exp" name="exp" required />
+    <label for="best-by">Best By:</label>
+    <input type="date" class="add-control" id="best-by" name="best-by" required />
   </div>
 
   <div class="row-2">
-    <label for="best-by">Best By:</label>
-    <input type="date" class="add-control" id="best-by" name="best-by" required />
+    <label for="past_best_by">Past Best By:</label>
+    <select class="add-control" id="past_best_by" name="past_best_by" required>
+      <option value="5-days">5 days</option>
+      <option value="1-month">1 month</option>
+      <option value="6-months">6 months</option>
+    </select>
+  </div>
+
+  <div class="row-2">
+    <label for="exp">Expiration Date:</label>
+    <input type="date" class="add-control" id="exp" name="exp" required readonly />
   </div>
 
   <div class="row-2">

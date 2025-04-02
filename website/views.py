@@ -3,10 +3,11 @@ import threading
 from flask import Blueprint, render_template, request, url_for, redirect, current_app
 from . import db, app, mail
 from .models import Products, User
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import jsonify
 from flask_mail import Message
+from dateutil.relativedelta import relativedelta
 
 views = Blueprint('views', __name__)
 
@@ -123,6 +124,7 @@ def edit(id):
         product.expiration = request.form.get('exp')
         product.date_arrived = request.form.get('date-arrived')
         product.alert_num = request.form.get('alertNum')
+        product.past_best_by = request.form.get('past_best_by')
 
         try:
             product.best_by = datetime.strptime(product.best_by, '%Y-%m-%d').date() if product.best_by else None
@@ -161,6 +163,7 @@ def add_product():
         exp = request.form.get('exp')
         date_arrived = request.form.get('date-arrived')
         best_by = request.form.get('best-by')
+        past_best_by = request.form.get('past_best_by')
         image = request.files.get('image')
         alert_num = request.form.get('alertNum')
 
@@ -170,7 +173,8 @@ def add_product():
             best_by = datetime.strptime(best_by, '%Y-%m-%d').date() if best_by else None
         except ValueError:
             return "Invalid date format", 400
-
+        
+        
         image_filename = None
         if image:
             image_filename = image.filename
@@ -188,7 +192,8 @@ def add_product():
             date_arrived=date_arrived,
             best_by=best_by,
             image=image_filename,
-            alert_num=alert_num
+            alert_num=alert_num,
+            past_best_by = past_best_by
         )
 
         db.session.add(new_product)
@@ -215,7 +220,7 @@ def send_email(product, subject):
         try:
             product = db.session.merge(product)
             
-            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"])
+            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["alec.zamora@western.edu"])
 
             if subject == "Low Stock Alert":
                 if(product.quantity == 1):

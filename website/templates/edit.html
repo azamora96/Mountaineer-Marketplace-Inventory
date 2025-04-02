@@ -32,6 +32,14 @@
         <input type="date" name="best-by" value="{{ product.best_by }}">
         <br>
 
+        <label>Past Best By:</label>
+        <select class="add-control" id="past_best_by" name="past_best_by" required>
+            <option value="5-days" {% if product.best_by == '5-days' %}selected{% endif %}>5 days</option>
+            <option value="1-month" {% if product.best_by == '1-month' %}selected{% endif %}>1 month</option>
+            <option value="6-months" {% if product.best_by == '6-months' %}selected{% endif %}>6 months</option>
+        </select>
+        <br>
+
         <label>Expiration:</label>
         <input type="date" name="exp" value="{{ product.expiration }}">
         <br>

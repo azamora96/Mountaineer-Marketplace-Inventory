@@ -13,6 +13,7 @@ class Products(db.Model):
     date_arrived = db.Column(db.Date)
     alert_num = db.Column(db.Integer)
     low_on_stock = db.Column(db.Boolean, default=False)
+    past_best_by = db.Column(db.String(20))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
