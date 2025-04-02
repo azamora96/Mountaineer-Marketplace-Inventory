@@ -1,6 +1,6 @@
 import os
 import threading
-from flask import Blueprint, render_template, request, url_for, redirect, current_app
+from flask import Blueprint, render_template, request, url_for, redirect, session
 from . import db, app, mail
 from .models import Products, User
 from datetime import datetime, timedelta
@@ -17,11 +17,16 @@ def home():
     all_products = Products.query.all()
     current_date = datetime.today().date()
 
+    if 'email_sent' not in session:
+        session['email_sent'] = False
+
     for product in all_products:
         expiration_date = product.expiration
         days_left = (expiration_date - current_date).days
-        if 0 <= days_left <= 7:
+        if 0 <= days_left <= 7 and not session['email_sent']:
             threading.Thread(target=send_email, args=(product, "Item Expiring Soon")).start()
+
+            session['email_sent'] = True
 
 
     return render_template("home.html", results=all_products)
