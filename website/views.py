@@ -15,6 +15,15 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     all_products = Products.query.all()
+    current_date = datetime.today().date()
+
+    for product in all_products:
+        expiration_date = product.expiration
+        days_left = (expiration_date - current_date).days
+        if 0 <= days_left <= 7:
+            threading.Thread(target=send_email, args=(product, "Item Expiring Soon")).start()
+
+
     return render_template("home.html", results=all_products)
 
 @views.route('/filter/<string:filter>')
@@ -227,8 +236,10 @@ def send_email(product, subject):
                     msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} is low in stock, there is {product.quantity} left."
                 else:
                     msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} is low in stock, there are {product.quantity} left."
-            else:
+            elif subject == "Inventory Removed Alert":
                 msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} removed from inventory."
+            elif subject == "Item Expiring Soon":
+                msg.body = f"{product.name} is expiring within a week. It's expiration is {product.expiration.strftime('%m-%d-%Y')}."
             mail.send(msg) 
 
         except Exception as e:
