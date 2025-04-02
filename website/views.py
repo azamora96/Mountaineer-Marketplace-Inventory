@@ -25,7 +25,6 @@ def home():
         days_left = (expiration_date - current_date).days
         if 0 <= days_left <= 7 and not session['email_sent']:
             threading.Thread(target=send_email, args=(product, "Item Expiring Soon")).start()
-
             session['email_sent'] = True
 
 
