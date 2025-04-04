@@ -1,6 +1,7 @@
 from . import db, app, mail
+from flask import session
 from flask_mail import Message
-from datetime import datetime, timedelta
+from datetime import datetime
 import threading
 
 def send_email(product, subject):
@@ -42,6 +43,11 @@ def send_expiring_email(products, subject):
             print(e)
         
 def expiring_check(all_products):
+
+    if 'expiring_email_sent' in session and session['expiring_email_sent']:
+        return
+    
+
     expiring_products = []
     current_date = datetime.today().date()
     
@@ -53,3 +59,4 @@ def expiring_check(all_products):
 
     if expiring_products:
         threading.Thread(target=send_expiring_email, args=(expiring_products, "Items Expiring Soon")).start()
+        session['expiring_email_sent'] = True
