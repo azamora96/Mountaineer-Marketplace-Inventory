@@ -24,6 +24,8 @@
         margin-top: 20px;
     }
     </style>
+
+  <script src="{{ url_for('static', filename='add_edit.js') }}"></script>
 </head>
 
 <form method="POST" enctype="multipart/form-data">
@@ -102,7 +104,6 @@
     <input type="file" id="imageUpload" name="image" accept="image/*" required />
   </div>
 
-  <script src="index.js"> </script>
 
   <br />
   <div class="submit-button">

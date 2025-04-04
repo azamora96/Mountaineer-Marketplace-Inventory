@@ -113,14 +113,15 @@
                             <button class="delete-button" data-id="{{ result.primary_id }}">Delete</button>
                         </td>
                         
-                        <script src="index.js">
-                           
-                        </script>
+                        
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </section>
+
+        <script src="{{ url_for('static', filename='home.js') }}"></script>
+        
     </body>
     </html>
 {% endblock %}
