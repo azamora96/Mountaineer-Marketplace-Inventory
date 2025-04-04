@@ -47,6 +47,27 @@ document.addEventListener("DOMContentLoaded", function () {
                             ? Math.max(0, parseInt(quantitySpan.textContent, 10) - 1)
                             : parseInt(quantitySpan.textContent, 10) + 1;
 
+                            
+
+                            if(newQuantity == 0){
+                                if (confirm("Do you want to delete this item?")) {
+                                    fetch(`/delete/${id}`, {
+                                        method: "DELETE",
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert("Item deleted successfully.");
+                                            location.reload(); 
+                                        } else {
+                                            alert("Error deleting item.");
+                                        }
+                                    })
+                                    .catch(error => console.error("Error:", error));
+                                }
+                            }
+                            
+
                         quantitySpan.textContent = newQuantity;
                     } else {
                         console.error("Failed to update quantity");
