@@ -186,6 +186,7 @@ def add_product():
             image_path = os.path.join(upload_folder, image_filename)
             image.save(image_path)
 
+
         new_product = Products(
             name=name,
             tefap=tefap,
