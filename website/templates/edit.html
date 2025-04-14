@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block title %} Edit Product {% endblock %}
 {% block content %}
+
+    
+
     <h2>Edit Product</h2>
     <form method="POST" enctype="multipart/form-data">
 
-        <script src="index.js"> </script>
         <label>Name:</label>
-        <input type="text" name="name" value="{{ product.name }}" required>
+        <input type="text" id="name" name="name" value="{{ product.name }}" required>
         <br>
 
         <label>TEFAP:</label>
@@ -31,33 +33,48 @@
         <br>
 
         <label>Best By:</label>
-        <input type="date" name="best-by" value="{{ product.best_by }}">
+        <input type="date" id="best-by" name="best-by" value="{{ product.best_by }}">
         <br>
 
         <label>Past Best By:</label>
         <select class="add-control" id="past_best_by" name="past_best_by" required>
-            <option value="5-days" {% if product.best_by == '5-days' %}selected{% endif %}>5 days</option>
-            <option value="1-month" {% if product.best_by == '1-month' %}selected{% endif %}>1 month</option>
-            <option value="6-months" {% if product.best_by == '6-months' %}selected{% endif %}>6 months</option>
+            <option value="0-days" {% if product.past_best_by == '0-days' %}selected{% endif %}>0 days</option>
+            <option value="5-days" {% if product.past_best_by == '5-days' %}selected{% endif %}>5 days</option>
+            <option value="7-days" {% if product.past_best_by == '7-days' %}selected{% endif %}>7 days</option>
+            <option value="14-days" {% if product.past_best_by == '14-days' %}selected{% endif %}>14 days</option>
+            <option value="1-month" {% if product.past_best_by == '1-month' %}selected{% endif %}>1 month</option>
+            <option value="2-months" {% if product.past_best_by == '2-months' %}selected{% endif %}>2 months</option>
+            <option value="3-months" {% if product.past_best_by == '3-months' %}selected{% endif %}>3 months</option>
+            <option value="6-months" {% if product.past_best_by == '6-months' %}selected{% endif %}>6 months</option>
+            <option value="12-months" {% if product.past_best_by == '12-months' %}selected{% endif %}>1 year</option>
+            <option value="18-months" {% if product.past_best_by == '18-months' %}selected{% endif %}>1.5 years</option>
+            <option value="24-months" {% if product.past_best_by == '24-months' %}selected{% endif %}>2 years</option>
+            <option value="30-months" {% if product.past_best_by == '30-months' %}selected{% endif %}>2.5 years</option>
+            <option value="36-months" {% if product.past_best_by == '36-months' %}selected{% endif %}>3 years</option>
+            <option value="48-months" {% if product.past_best_by == '48-months' %}selected{% endif %}>4 years</option>
+            <option value="60-months" {% if product.past_best_by == '60-months' %}selected{% endif %}>5 years</option>
         </select>
         <br>
 
         <label>Expiration:</label>
-        <input type="date" name="exp" value="{{ product.expiration }}">
+        <input type="date" id="exp" name="exp" value="{{ product.expiration }}">
         <br>
 
         <label>Current Image:</label>
         {% if product.image %}
-            <img src="{{ url_for('static', filename='uploads/' + product.image) }}" width="100">
+            <img id="previewImg" src="{{ url_for('static', filename='uploads/' + product.image) }}" width="100">
         {% else %}
             <p>No image available</p>
         {% endif %}
         <br>
 
         <label>Change Image:</label>
-        <input type="file" name="image">
+        <input id="imageUpload" type="file" name="image">
         <br>
 
         <button type="submit" class="btn btn-primary">Save Changes</button>
+
+        
     </form>
+    <script src="{{ url_for('static', filename='add_edit.js') }}"></script>
 {% endblock %}

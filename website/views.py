@@ -5,6 +5,8 @@ from flask import Blueprint, render_template, request, url_for, redirect, sessio
 from . import db, app, mail
 from .models import Products, User
 from datetime import datetime, timedelta
+from .helpers import expiring_check, send_email
+from dateutil.relativedelta import relativedelta
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import jsonify
 from flask_mail import Message
@@ -18,18 +20,8 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     all_products = Products.query.all()
-    current_date = datetime.today().date()
-
-    if 'email_sent' not in session:
-        session['email_sent'] = False
-
-    for product in all_products:
-        expiration_date = product.expiration
-        days_left = (expiration_date - current_date).days
-        if 0 <= days_left <= 7 and not session['email_sent']:
-            threading.Thread(target=send_email, args=(product, "Item Expiring Soon")).start()
-            session['email_sent'] = True
-
+    
+    expiring_check(all_products)
 
     return render_template("home.html", results=all_products)
 
@@ -186,7 +178,7 @@ def edit(id):
         image = request.files.get('image')
         if image:
             image_filename = image.filename
-            upload_folder = os.path.join('static', 'uploads')
+            upload_folder = os.path.join('website', 'static', 'uploads')
             os.makedirs(upload_folder, exist_ok=True)
             image_path = os.path.join(upload_folder, image_filename)
             image.save(image_path)
@@ -228,6 +220,7 @@ def add_product():
             image_path = os.path.join(upload_folder, image_filename)
             image.save(image_path)
 
+
         new_product = Products(
             name=name,
             tefap=tefap,
@@ -260,27 +253,6 @@ def delete_item(item_id):
     return jsonify({'success': True})
 
 
-def send_email(product, subject):
-    with app.app_context():
-        try:
-            product = db.session.merge(product)
-            
-            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["alec.zamora@western.edu"])
 
-            if subject == "Low Stock Alert":
-                if(product.quantity == 1):
-                    msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} is low in stock, there is {product.quantity} left."
-                else:
-                    msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} is low in stock, there are {product.quantity} left."
-            elif subject == "Inventory Removed Alert":
-                msg.body = f"{product.name} with expiration of {product.expiration.strftime('%m-%d-%Y')} removed from inventory."
-            elif subject == "Item Expiring Soon":
-                msg.body = f"{product.name} is expiring within a week. It's expiration is {product.expiration.strftime('%m-%d-%Y')}."
-            mail.send(msg) 
-
-        except Exception as e:
-            print(e)
-        
-    
 
 
