@@ -44,6 +44,22 @@
             .filter-dropdown {
                 padding: 5px;
             }
+            .csv-button-container {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+            }
+            .csv-button {
+                background-color: red;
+                color: white;
+                padding: 5px 10px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none
+            }
+            .csv-button:hover {
+                background-color: darkgreen;
+            }
         </style>
     </head>
     <body>
@@ -52,6 +68,11 @@
         </header>
 
         <section>
+
+            <div class="top-left-button-container">
+                <a href="{{ url_for('views.export') }}" class="csv-button">Export To CSV</a>
+            </div>
+
             <div class="filter-container">
                 <label for="filter">Filter by:</label>
                 <select id="filter" class="filter-dropdown">

@@ -1,6 +1,7 @@
 import os
 import threading
-from flask import Blueprint, render_template, request, url_for, redirect, session
+import pandas as pd
+from flask import Blueprint, render_template, request, url_for, redirect, session, send_file
 from . import db, app, mail
 from .models import Products, User
 from datetime import datetime, timedelta
@@ -8,6 +9,8 @@ from flask_login import login_user, login_required, logout_user, current_user
 from flask import jsonify
 from flask_mail import Message
 from dateutil.relativedelta import relativedelta
+from io import BytesIO
+
 
 views = Blueprint('views', __name__)
 
@@ -29,6 +32,35 @@ def home():
 
 
     return render_template("home.html", results=all_products)
+
+from flask import Response
+import csv
+from io import StringIO
+
+@views.route("/export")
+@login_required
+def export():
+    all_products = Products.query.all()
+
+    output = StringIO()
+    writer = csv.writer(output)
+
+    if all_products:
+        column_names = [column.key for column in Products.__table__.columns]
+        writer.writerow(column_names)
+
+        for product in all_products:
+            writer.writerow([getattr(product, col) for col in column_names])
+
+    output.seek(0)
+
+    return Response(
+        output,
+        mimetype='text/csv',
+        headers={"Content-Disposition": "attachment;filename=data.csv"}
+    )
+
+
 
 @views.route('/filter/<string:filter>')
 @login_required
