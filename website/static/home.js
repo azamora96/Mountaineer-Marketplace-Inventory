@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     QuantityButtons();
     setupDeleteButtons();
+    setupImageModal();
 
     document.getElementById("filter").addEventListener("change", async function () {
         let filterValue = this.value;
@@ -113,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         QuantityButtons();
         setupDeleteButtons();
+        setupImageModal();
     }
 
     function setupDeleteButtons() {
@@ -136,5 +138,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
+    }
+
+    function setupImageModal() {
+        document.querySelectorAll(".product-img").forEach(img => {
+            img.addEventListener("click", function () {
+                openModal(this);
+            });
+        });
+    
+        window.onclick = function(event) {
+            const modal = document.getElementById("imageModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    }
+    
+    function openModal(imgElement) {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const clostBtn = document.querySelector(".close-modal");
+
+        modal.style.display = "block";
+        modalImg.src = imgElement.src;
+
+        if (closeBtn) clostBtn.style.display = "none";
     }
 });
