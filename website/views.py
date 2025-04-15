@@ -12,6 +12,9 @@ from flask import jsonify
 from flask_mail import Message
 from dateutil.relativedelta import relativedelta
 from io import BytesIO
+from flask import Response
+import csv
+from io import StringIO
 
 
 views = Blueprint('views', __name__)
@@ -25,9 +28,31 @@ def home():
 
     return render_template("home.html", results=all_products)
 
-from flask import Response
-import csv
-from io import StringIO
+
+@app.route('/search')
+@login_required
+def search():
+    query = request.args.get('q', '').strip().lower()
+    
+    results = Products.query.filter(Products.name.ilike(f"%{query}%")).all()
+    
+    results_json = []
+    for item in results:
+        results_json.append({
+            "primary_id": item.primary_id,
+            "image": item.image,
+            "name": item.name,
+            "date_arrived": item.date_arrived.strftime('%m-%d-%Y') if item.date_arrived else '',
+            "tefap": item.tefap,
+            "best_by": item.best_by.strftime('%m-%d-%Y') if item.best_by else '',
+            "expiration": item.expiration.strftime('%m-%d-%Y') if item.expiration else '',
+            "location": item.location,
+            "quantity": item.quantity,
+        })
+
+    return jsonify(results=results_json)
+
+
 
 @views.route("/export")
 @login_required

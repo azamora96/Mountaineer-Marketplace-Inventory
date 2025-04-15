@@ -5,6 +5,34 @@
     <head>
         <title>Marketplace Inventory</title>
         <style>
+            .top-controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+            }
+            .searchbar {
+                flex: 1;
+                text-align: center;
+            }
+
+            .searchbar input[type="search"] {
+                width: 60%;
+                padding: 6px;
+                font-size: 16px;
+            }
+
+            .filter-container {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .csv-button-container {
+                display: flex;
+                align-items: center;
+            }
             table {
                 width: 100%;
                 border-collapse: collapse;
@@ -101,23 +129,29 @@
 
         <section>
 
-            <div class="top-left-button-container">
-                <a href="{{ url_for('views.export') }}" class="csv-button">Export To CSV</a>
-            </div>
-
-            <div class="filter-container">
-                <label for="filter">Filter by:</label>
-                <select id="filter" class="filter-dropdown">
-                    <option value="all"> All</option>
-                    <option value="name_asc"> Name Ascending</option>
-                    <option value="name_desc"> Name Descending</option>
-                    <option value="quantity_asc"> Quantity Ascending</option>
-                    <option value="quantity_desc"> Quantity Descending</option>
-                    <option value="location"> Location </option>
-                    <option value="expiration"> Expiration </option>
-                    <option value="date_arrived"> Date Arrived </option>
-                    <option value="best_by"> Best by</option>
-                </select>
+            <div class="top-controls">
+                <div class="csv-button-container">
+                    <a href="{{ url_for('views.export') }}" class="csv-button">Export To CSV</a>
+                </div>
+            
+                <div class="searchbar">
+                    <input type="search" id="searchbar" name="searchbar" placeholder="Search...">
+                </div>
+            
+                <div class="filter-container">
+                    <label for="filter">Filter by:</label>
+                    <select id="filter" class="filter-dropdown">
+                        <option value="all"> All</option>
+                        <option value="name_asc"> Name Ascending</option>
+                        <option value="name_desc"> Name Descending</option>
+                        <option value="quantity_asc"> Quantity Ascending</option>
+                        <option value="quantity_desc"> Quantity Descending</option>
+                        <option value="location"> Location </option>
+                        <option value="expiration"> Expiration </option>
+                        <option value="date_arrived"> Date Arrived </option>
+                        <option value="best_by"> Best by</option>
+                    </select>
+                </div>
             </div>
 
         <section>

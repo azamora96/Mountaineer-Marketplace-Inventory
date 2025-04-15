@@ -25,6 +25,28 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error:", error);
         }
     });
+
+    document.getElementById("searchbar").addEventListener("input", async function () {
+        query = this.value.trim();
+
+        try {
+            let response = await fetch(`/search?q=${encodeURIComponent(query)}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                let data = await response.json();
+                updateTable(data.results);
+            } else {
+                console.error("Search failed");
+            }
+        } catch (error) {
+            console.error("Error during search:", error);
+        }
+    })
     
     function QuantityButtons() {
         const buttons = document.querySelectorAll(".button");
