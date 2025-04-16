@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const modalImg = document.getElementById("modalImage");
         const clostBtn = document.querySelector(".close-modal");
 
-        modal.style.display = "block";
+        modal.style.display = "flex";
         modalImg.src = imgElement.src;
 
         if (closeBtn) clostBtn.style.display = "none";
