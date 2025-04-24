@@ -1,42 +1,44 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<html lang="en">
+
     <head>
         <title>Marketplace Inventory</title>
         <link href="{{ url_for('static', filename='style/home.css') }}" rel="stylesheet">
     </head>
-    <body>
-        <header class="page-header">
-            <img src="{{ url_for('static', filename='images/header.png') }}" alt="Mountaineer Marketplace Logo" class="header-logo">
-        </header>
-        <section>
-            <div class="top-controls">
-                <div class="csv-button-container">
-                    <a href="{{ url_for('views.export') }}" class="csv-button">Export To CSV</a>
-                </div>
-            
-                <div class="searchbar">
-                    <input type="search" id="searchbar" name="searchbar" placeholder="Search...">
-                </div>
-            
-                <div class="filter-container">
-                    <label for="filter">Filter by:</label>
-                    <select id="filter" class="filter-dropdown">
-                        <option value="all"> All</option>
-                        <option value="name_asc"> Name Ascending</option>
-                        <option value="name_desc"> Name Descending</option>
-                        <option value="quantity_asc"> Quantity Ascending</option>
-                        <option value="quantity_desc"> Quantity Descending</option>
-                        <option value="location"> Location </option>
-                        <option value="expiration"> Expiration </option>
-                        <option value="date_arrived"> Date Arrived </option>
-                        <option value="best_by"> Best by</option>
-                    </select>
-                </div>
-            </div>
 
-        <section>
+    <header class="page-header">
+        <img src="{{ url_for('static', filename='images/header.png') }}" alt="Mountaineer Marketplace Logo" class="header-logo">
+    </header>
+
+    <div class="top-controls">
+        <div class="csv-button-container">
+            <a href="{{ url_for('views.export') }}" class="csv-button">Export To CSV</a>
+        </div>
+    
+        <div class="searchbar">
+            <input type="search" id="searchbar" name="searchbar" placeholder="Search...">
+        </div>
+    
+        <div class="filter-container">
+            <label for="filter">Filter by:</label>
+            <select id="filter" class="filter-dropdown">
+                <option value="all"> All</option>
+                <option value="name_asc"> Name Ascending</option>
+                <option value="name_desc"> Name Descending</option>
+                <option value="quantity_asc"> Quantity Ascending</option>
+                <option value="quantity_desc"> Quantity Descending</option>
+                <option value="location"> Location </option>
+                <option value="expiration"> Expiration </option>
+                <option value="date_arrived"> Date Arrived </option>
+                <option value="best_by"> Best by</option>
+            </select>
+        </div>
+    </div>
+
+        
+    <section>
+        <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
@@ -87,11 +89,11 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </section>
-
-        <script src="{{ url_for('static', filename='home.js') }}"></script>
+        </div>
         
-    </body>
-</html>
+    </section>
+            
+    <script src="{{ url_for('static', filename='home.js') }}"></script>    
+
 {% endblock %}
 
