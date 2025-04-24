@@ -8,6 +8,7 @@ body {
   color: #333; 
   margin: 0;
   padding: 0;
+  padding-bottom: 50px;
 }
 
 .form-wrapper {
@@ -104,6 +105,15 @@ h3 {
   margin-top: 15px;
   margin-bottom: 0px;
   margin-left: 60px;
+  text-align: left;
+  color: white;
+}
+
+.edit_header {
+  font-size: 35px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  margin-left: -55px;
   text-align: left;
   color: white;
 }
