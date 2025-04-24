@@ -1,3 +1,10 @@
+body {
+  background-color: rgba(211, 211, 211, 1);
+  font-family: Arial, sans-serif;
+  color: #333; 
+  margin: 0;
+  padding: 0;
+}
 
 .form-container {
   display: flex;
@@ -78,3 +85,5 @@ h3 {
   margin-left: -15px;
   text-align: left;
 }
+
+.filter-

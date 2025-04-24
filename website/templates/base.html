@@ -1,23 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            #imageModal {
-                display: none;
-                position: fixed;
-                z-index: 9999;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.8);
-                justify-content: center;
-            }
-            #modalImage {
-                max-width: 90%;
-                max-height: 90%;
-                border-radius: 10px;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-            }
-        </style>
+        <link href="{{ url_for('static', filename='style/base.css') }}" rel="stylesheet">
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link

@@ -1,99 +1,10 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
 {% block content %}
-    <html lang="en">
+<html lang="en">
     <head>
         <title>Marketplace Inventory</title>
-        <style>
-            .top-controls {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 20px;
-                flex-wrap: wrap;
-            }
-            .searchbar {
-                flex: 1;
-                text-align: center;
-            }
-
-            .searchbar input[type="search"] {
-                width: 60%;
-                padding: 6px;
-                font-size: 16px;
-            }
-
-            .filter-container {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-            }
-
-            .csv-button-container {
-                display: flex;
-                align-items: center;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            table, th, td {
-                border: 1px solid black;
-            }
-            th, td {
-                padding: 10px;
-                text-align: center;
-            }
-            th {
-                background-color: #f2f2f2;
-            }
-            .edit-button {
-                background-color: blue;
-                color: white;
-                padding: 5px 10px;
-                border: none;
-                cursor: pointer;
-                text-decoration: none;
-            }
-            .edit-button:hover {
-                background-color: purple;
-            }
-            .product-img {
-                width: 50px;
-                height: 50px;
-                cursor: pointer;
-                transition: transform 0.2s;
-                object-fit: cover;
-                border-radius: 5px;
-            }
-            .product-img:hover {
-                transform: scale(1.1);
-            }
-            .filter-container {
-                display: flex;
-                justify-content: flex-end;
-                margin-bottom: 10px;
-            }
-            .filter-dropdown {
-                padding: 5px;
-            }
-            .csv-button-container {
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 10px;
-            }
-            .csv-button {
-                background-color: red;
-                color: white;
-                padding: 5px 10px;
-                border: none;
-                cursor: pointer;
-                text-decoration: none
-            }
-            .csv-button:hover {
-                background-color: darkgreen;
-            }
-        </style>
+        <link href="{{ url_for('static', filename='style/home.css') }}" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -181,6 +92,6 @@
         <script src="{{ url_for('static', filename='home.js') }}"></script>
         
     </body>
-    </html>
+</html>
 {% endblock %}
 

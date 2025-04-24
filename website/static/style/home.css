@@ -1,0 +1,167 @@
+body {
+    background-color: rgba(211, 211, 211, 1);
+    font-family: Arial, sans-serif;
+    color: #333; 
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background-color: #F9F9F9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+.csv-button-container,
+.filter-container,
+.searchbar {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.csv-button-container {
+    flex: 0 0 auto;
+}
+
+.searchbar {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+}
+
+.searchbar input[type="search"] {
+    width: 60%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #9C9D9F;
+    outline: none;
+    transition: border-color 0.3s;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.searchbar input[type="search"]:focus {
+    border-color: #EE3E41;
+}
+
+.filter-container {
+    flex: 0 0 auto;
+    gap: 5px;
+}
+
+.filter-container label{
+    margin-top: 7px;
+    font-weight: bold;
+}
+
+.filter-dropdown {
+    padding: 5px;
+    border: 1px solid #9C9D9F;
+    border-radius: 4px;
+    background-color: #FFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    vertical-align: middle;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #9C9D9F;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: rgba(238, 62, 65, 0.75);
+    color: #FFF; 
+}
+
+td {
+    background-color: #F9F9F9; 
+}
+
+td:hover {
+    background-color: rgba(236, 228, 213, 0.8);
+}
+
+.edit-button {
+    background-color: #C61331; 
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+    background-color: #9C9D9F; 
+}
+
+.delete-button {
+    background-color: #C61331;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #9C9D9F;
+}
+
+.product-img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 2px solid #9C9D9F; 
+}
+
+.product-img:hover {
+    transform: scale(1.1);
+    border-color: #EE3E41; 
+}
+
+.csv-button {
+    background-color: #EE3E41; 
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.csv-button:hover {
+    background-color: #C61331;
+}
