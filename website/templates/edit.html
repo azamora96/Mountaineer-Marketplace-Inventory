@@ -2,79 +2,93 @@
 {% block title %} Edit Product {% endblock %}
 {% block content %}
 
-    
-
-    <h2>Edit Product</h2>
-    <form method="POST" enctype="multipart/form-data">
-
-        <label>Name:</label>
-        <input type="text" id="name" name="name" value="{{ product.name }}" required>
-        <br>
-
-        <label>TEFAP:</label>
-        <input type="radio" name="TEFAP" value="Yes" {% if product.tefap == "Yes" %}checked{% endif %} required> Yes
-        <input type="radio" name="TEFAP" value="No" {% if product.tefap == "No" %}checked{% endif %} required> No
-        <br>
-
-        <label>Location:</label>
-        <input type="text" name="location" value="{{ product.location }}" required>
-        <br>
-
-        <label>Quantity:</label>
-        <input type="number" name="quantity" value="{{ product.quantity }}" required>
-        <br>
-
-        <label>Alert Quantity:</label>
-        <input type="number" name="alertNum" value="{{ product.alert_num }}" required>
-        <br>
-
-        <label>Date Arrived:</label>
-        <input type="date" name="date-arrived" value="{{ product.date_arrived }}">
-        <br>
-
-        <label>Best By:</label>
-        <input type="date" id="best-by" name="best-by" value="{{ product.best_by }}">
-        <br>
-
-        <label>Past Best By:</label>
-        <select class="add-control" id="past_best_by" name="past_best_by" required>
-            <option value="0-days" {% if product.past_best_by == '0-days' %}selected{% endif %}>0 days</option>
-            <option value="5-days" {% if product.past_best_by == '5-days' %}selected{% endif %}>5 days</option>
-            <option value="7-days" {% if product.past_best_by == '7-days' %}selected{% endif %}>7 days</option>
-            <option value="14-days" {% if product.past_best_by == '14-days' %}selected{% endif %}>14 days</option>
-            <option value="1-month" {% if product.past_best_by == '1-month' %}selected{% endif %}>1 month</option>
-            <option value="2-months" {% if product.past_best_by == '2-months' %}selected{% endif %}>2 months</option>
-            <option value="3-months" {% if product.past_best_by == '3-months' %}selected{% endif %}>3 months</option>
-            <option value="6-months" {% if product.past_best_by == '6-months' %}selected{% endif %}>6 months</option>
-            <option value="12-months" {% if product.past_best_by == '12-months' %}selected{% endif %}>1 year</option>
-            <option value="18-months" {% if product.past_best_by == '18-months' %}selected{% endif %}>1.5 years</option>
-            <option value="24-months" {% if product.past_best_by == '24-months' %}selected{% endif %}>2 years</option>
-            <option value="30-months" {% if product.past_best_by == '30-months' %}selected{% endif %}>2.5 years</option>
-            <option value="36-months" {% if product.past_best_by == '36-months' %}selected{% endif %}>3 years</option>
-            <option value="48-months" {% if product.past_best_by == '48-months' %}selected{% endif %}>4 years</option>
-            <option value="60-months" {% if product.past_best_by == '60-months' %}selected{% endif %}>5 years</option>
-        </select>
-        <br>
-
-        <label>Expiration:</label>
-        <input type="date" id="exp" name="exp" value="{{ product.expiration }}" required readonly>
-        <br>
-
-        <label>Current Image:</label>
-        {% if product.image %}
-            <img id="previewImg" src="{{ url_for('static', filename='uploads/' + product.image) }}" width="100">
-        {% else %}
-            <p>No image available</p>
-        {% endif %}
-        <br>
-
-        <label>Change Image:</label>
-        <input id="imageUpload" type="file" name="image">
-        <br>
-
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-
-        
-    </form>
+<head>
+    <link href="{{ url_for('static', filename='style/add_edit.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', filename='add_edit.js') }}"></script>
+</head>
+
+<h3>Edit Product</h3>
+
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-container">
+        <div class = "left-column">
+            <div class="row">
+                <label for="name">Name:</label>
+                <input type="text" class="add-control" id="name" name="name" value="{{ product.name }}" required />
+            </div>
+
+            <div class="row tefap-row">
+                <label for="TEFAP">TEFAP:</label>
+                <div class="radio-group-inline">
+                    <label><input type="radio" name="TEFAP" value="Yes" {% if product.tefap == "Yes" %}checked{% endif %} required> Yes</label>
+                    <label><input type="radio" name="TEFAP" value="No" {% if product.tefap == "No" %}checked{% endif %} required> No</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="location">Location:</label>
+                <input type="text" class="add-control" id="location" name="location" value="{{ product.location }}" required />
+            </div>
+
+            <div class="row">
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="add-control" id="quantity" name="quantity" value="{{ product.quantity }}" required />
+            </div>
+
+            <div class="row">
+                <label for="alertNum">Alert Quantity:</label>
+                <input type="number" class="add-control" id="alertNum" name="alertNum" value="{{ product.alert_num }}" required />
+            </div>
+
+            <div class="row">
+                <label>Current Image:</label>
+                {% if product.image %}
+                    <img id="previewImg" src="{{ url_for('static', filename='uploads/' + product.image) }}" width="100">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <label for="image">Change Image:</label>
+                <input type="file" id="imageUpload" name="image" accept="image/*" />
+            </div>
+        </div>
+    
+        <div class="right-column">
+            <div class="row">
+                <label for="date-arrived">Date Arrived:</label>
+                <input type="date" class="add-control" id="date-arrived" name="date-arrived" value="{{ product.date_arrived }}" required />
+            </div>
+    
+            <div class="row">
+                <label for="best-by">Best By:</label>
+                <input type="date" class="add-control" id="best-by" name="best-by" value="{{ product.best_by }}" required />
+            </div>
+    
+            <div class="row">
+                <label for="past_best_by">Past Best By:</label>
+                <select class="add-control" id="past_best_by" name="past_best_by" required>
+                    {% for option in [
+                        '0-days', '5-days', '7-days', '14-days', '1-month', '2-months',
+                        '3-months', '6-months', '12-months', '18-months', '24-months',
+                        '30-months', '36-months', '48-months', '60-months'
+                    ] %}
+                    <option value="{{ option }}" {% if product.past_best_by == option %}selected{% endif %}>{{ option.replace('-', ' ').replace('months', 'months').replace('month', 'month').replace('days', 'days') }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+    
+            <div class="row">
+                <label for="exp">Expiration Date:</label>
+                <input type="date" class="add-control" id="exp" name="exp" value="{{ product.expiration }}" required readonly />
+    
+                <div class="submit-button" style="margin-top: 15px;">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="{{ url_for('static', filename='add_edit.js') }}"></script>
 {% endblock %}

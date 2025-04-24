@@ -1,0 +1,80 @@
+
+.form-container {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.row label {
+  margin-bottom: 4px; 
+  font-weight: bold;
+}
+
+.row .preview {
+  margin-top: 10px; 
+}
+
+.add-control {
+  width: 50%; 
+  height: 35px;
+}
+
+.left-column, .right-column {
+  width: 15%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview {
+  width: 200px;
+  height: 200px;
+  border: 2px dashed black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.preview img {
+  max-width: 100%;
+  max-height: 100%;
+  display: none;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: auto;
+}
+
+.tefap-row {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.radio-group-inline {
+  display: flex;
+  gap: 10px;
+}
+
+.radio-group-inline label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+h3 {
+  font-size: 35px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: -15px;
+  text-align: left;
+}
