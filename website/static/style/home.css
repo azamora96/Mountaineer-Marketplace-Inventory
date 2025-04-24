@@ -103,8 +103,23 @@ th {
     color: #FFF; 
 }
 
+.page-header {
+    display: flex;
+    justify-content: flex-start; 
+    padding: 5px 40px 5px 200px;
+    
+}
+
+.header-logo {
+    max-width: 600px;
+    height: auto;
+    
+}
+
 td {
     background-color: rgba(249, 249, 249, 0.65);
+    font-size: 17px;
+    /* font-weight: bold; */
 }
 
 td:hover {
