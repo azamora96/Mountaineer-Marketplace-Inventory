@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, url_for, redirect, sessio
 from . import db, app, mail
 from .models import Products, User
 from datetime import datetime, timedelta
-from .helpers import expiring_check, send_email
+from .helpers import expiring_check, send_email, forgot_password
 from dateutil.relativedelta import relativedelta
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import jsonify
@@ -277,6 +277,12 @@ def delete_item(item_id):
     db.session.commit()
     
     return jsonify({'success': True})
+
+@views.route('/forgot')
+def forgot():
+    print("forgot")
+    threading.Thread(target=forgot_password).start()
+    return redirect(url_for('auth.login'))
 
 
 

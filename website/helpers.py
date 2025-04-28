@@ -60,3 +60,16 @@ def expiring_check(all_products):
     if expiring_products:
         threading.Thread(target=send_expiring_email, args=(expiring_products, "Items Expiring Soon")).start()
         session['expiring_email_sent'] = True
+
+def forgot_password():
+         with app.app_context():
+            try:
+                msg = Message("User Recovery", sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"])
+                email_body = "Username: mountaineer ; Password = Marketplace1!"
+                msg.body = email_body
+
+                mail.send(msg) 
+            except Exception as e:
+                print(e)
+
+            
