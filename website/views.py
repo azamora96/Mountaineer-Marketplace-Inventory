@@ -1,7 +1,7 @@
 import os
 import threading
 import pandas as pd
-from flask import Blueprint, render_template, request, url_for, redirect, session, send_file
+from flask import Blueprint, render_template, request, url_for, redirect, session, send_file, flash
 from . import db, app, mail
 from .models import Products, User
 from datetime import datetime, timedelta
@@ -282,6 +282,8 @@ def delete_item(item_id):
 def forgot():
     print("forgot")
     threading.Thread(target=forgot_password).start()
+    flash('Email sent!', 'email')
+
     return redirect(url_for('auth.login'))
 
 
