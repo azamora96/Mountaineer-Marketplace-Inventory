@@ -62,12 +62,13 @@ def export():
     output = StringIO()
     writer = csv.writer(output)
 
+    selected_columns = ["name", "tefap", "best_by", "expiration", "location", "quantity", "date_arrived", "low_on_stock"]
+
     if all_products:
-        column_names = [column.key for column in Products.__table__.columns]
-        writer.writerow(column_names)
+        writer.writerow(selected_columns)
 
         for product in all_products:
-            writer.writerow([getattr(product, col) for col in column_names])
+            writer.writerow([getattr(product, col) for col in selected_columns])
 
     output.seek(0)
 
