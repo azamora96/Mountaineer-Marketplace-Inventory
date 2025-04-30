@@ -1,5 +1,5 @@
 from flask_login import login_user, login_required, logout_user, current_user
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import User
 
 auth = Blueprint('auth', __name__)
@@ -11,11 +11,12 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-        if user:
-            password = User.query.filter_by(password=password).first()
-            if password:
-                login_user(user, remember=False)
-                return redirect(url_for("views.home"))
+
+        if user and user.password == password:
+            login_user(user, remember=False)
+            return redirect(url_for("views.home"))
+        else:
+            flash('Invalid username or password.', 'error')  
 
     return render_template("login.html", boolean=True)
 
