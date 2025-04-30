@@ -9,7 +9,7 @@ def send_email(product, subject):
         try:
             product = db.session.merge(product)
             
-            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"])
+            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["alec.zamora@western.edu"])
 
             if subject == "Low Stock Alert":
                 if(product.quantity == 1):
@@ -28,7 +28,7 @@ def send_email(product, subject):
 def send_expiring_email(products, subject):
     with app.app_context():
         try:
-            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"])
+            msg = Message(subject, sender='mountaineer.marketplace.alerts@gmail.com', recipients=["alec.zamora@western.edu"])
         
             email_body = "The following items are expiring within 31 days:\n\n"
             
@@ -64,7 +64,7 @@ def expiring_check(all_products):
 def forgot_password():
          with app.app_context():
             try:
-                msg = Message("User Recovery", sender='mountaineer.marketplace.alerts@gmail.com', recipients=["projectkhandro@gmail.com"])
+                msg = Message("User Recovery", sender='mountaineer.marketplace.alerts@gmail.com', recipients=["alec.zamora@western.edu"])
                 email_body = "Username: mountaineer ; Password = Marketplace1!"
                 msg.body = email_body
 
