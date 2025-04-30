@@ -280,7 +280,6 @@ def delete_item(item_id):
 
 @views.route('/forgot')
 def forgot():
-    print("forgot")
     threading.Thread(target=forgot_password).start()
     flash('Email sent!', 'email')
 

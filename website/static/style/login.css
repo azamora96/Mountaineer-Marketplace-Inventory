@@ -11,6 +11,13 @@ body {
     padding-bottom: 50px;
 }
 
+.header-logo {
+    display: block;
+    margin: 0 auto 20px auto; /* Center horizontally and add space below */
+    max-width: 320px;
+    height: auto;
+}
+
 form {
     max-width: 500px;
     margin: 50px auto;
