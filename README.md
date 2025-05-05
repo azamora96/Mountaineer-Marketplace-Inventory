@@ -7,15 +7,15 @@ INVENTORY MANAGEMENT SITE:
 
 - **Login:** Reach Out to Owner for Login Information - **OR** -  If developer, create your own login in the Users table in the DB.
   
-- **Adding a Product:** Click Add in the NAV bar -> All fields required except for image -> EXP Date field auto populated once Best By and Past Best By chosen -> Click Add Product.
+- **Adding a Product:** Click Add in the NAV bar -> All fields required except for image -> EXP Date field auto populated once Best By and Past Best By chosen -> Click Add Product. -> Should be redirected to home page and able to see the product you added in the table.
   
-- **Removing a Product:** Click Delete button in the row of Item to delete - **OR** - Press decrement(-) button until it hits zero, hit confirm for popup.
+- **Removing a Product:** Click Delete button in the row of Item to delete -> Click confirm in delete popup. -> Item should be removed from table. - **OR** - Press decrement(-) button until it hits zero -> hit confirm for popup. -> Item should be removed from table.
   
-- **Editing a Product:** Click Edit button in the row of Item to edit -> Update desired fields and click Save Changes button.
+- **Editing a Product:** Click Edit button in the row of Item to edit -> Update desired fields -> click Save Changes button. -> Should be redirected to home page and able to see edited product in the table.
 
-- **Filtering the table:** Click an option in the Filter dropdown, table should be updated in ASC or DESC order based on choice.
+- **Filtering the table:** Click an option in the Filter dropdown -> table should be updated in ASC or DESC order based on choice.
 
-- **Searching the table:** Search for the product you're looking for by clicking into the search bar and typing, the table should be updated as you type.
+- **Searching the table:** Search for the product you're looking for by clicking into the search bar and typing -> the table should be updated as you type.
 
 - **Exporting the table as CSV:** Click Export to CSV button -> Choose location to save .CSV file -> Choose name to save .CSV file as -> Click save.
 
