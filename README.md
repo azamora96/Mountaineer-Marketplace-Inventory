@@ -3,6 +3,8 @@ INVENTORY MANAGEMENT SITE:
 - **General:** This site was custom made and tailored for a client, if you wish to use this for another location please reach out to the owner Azamora96. 
 - This is a simple inventory management website where there is one user, and they share a login, and they are able to add, edit, view, and delete items in their inventory.
 
+- **Running the Site:** Download repo -> open Mountaineer-Marketplace-Inventory folder in your IDE of choice -> open flask_app.py -> Click Run -> visit your local host link to access page.
+
 - **Login:** Reach Out to Owner for Login Information - **OR** -  If developer, create your own login in the Users table in the DB.
   
 - **Adding a Product:** Click Add in the NAV bar -> All fields required except for image -> EXP Date field auto populated once Best By and Past Best By chosen -> Click Add Product.
